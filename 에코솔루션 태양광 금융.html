@@ -1,0 +1,1398 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>에코솔루션 | 태양광 금융 전문 블로그</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sun: #F5A623;
+    --sun-light: #FFD166;
+    --sun-warm: #FF8C42;
+    --deep: #1A1A2E;
+    --panel: #0F2A44;
+    --panel-mid: #16324F;
+    --text: #E8E4DC;
+    --text-soft: #B8B0A0;
+    --white: #FAFAF7;
+    --accent: #4ECDC4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0F2A44 0%, #1A1A2E 50%, #0D1B2A 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    text-align: center;
+    padding: 60px 20px 80px;
+  }
+
+  /* sun glow */
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; left: 50%; transform: translateX(-50%);
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(245,166,35,0.35) 0%, rgba(245,166,35,0.1) 40%, transparent 70%);
+    border-radius: 50%;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  /* solar panel grid bg */
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 35%;
+    background:
+      repeating-linear-gradient(90deg, rgba(78,205,196,0.06) 0px, rgba(78,205,196,0.06) 1px, transparent 1px, transparent 80px),
+      repeating-linear-gradient(0deg, rgba(78,205,196,0.06) 0px, rgba(78,205,196,0.06) 1px, transparent 1px, transparent 60px);
+    mask-image: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+  }
+
+  .sun-icon {
+    position: relative; z-index: 2;
+    font-size: 72px;
+    animation: spin-slow 20s linear infinite;
+    filter: drop-shadow(0 0 30px rgba(245,166,35,0.7));
+    margin-bottom: 24px;
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-tag {
+    position: relative; z-index: 2;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(78,205,196,0.12);
+    border: 1px solid rgba(78,205,196,0.3);
+    padding: 6px 18px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    position: relative; z-index: 2;
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, var(--sun-light) 0%, var(--sun) 50%, var(--sun-warm) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    position: relative; z-index: 2;
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--text-soft);
+    max-width: 560px;
+    line-height: 1.8;
+    margin-bottom: 40px;
+  }
+
+  .hero-stats {
+    position: relative; z-index: 2;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stat-box {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 12px;
+    padding: 18px 28px;
+    text-align: center;
+    transition: all 0.3s;
+  }
+
+  .stat-box:hover {
+    background: rgba(245,166,35,0.08);
+    border-color: rgba(245,166,35,0.5);
+    transform: translateY(-4px);
+  }
+
+  .stat-num {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--sun);
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+    margin-top: 4px;
+    letter-spacing: 1px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15, 42, 68, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(245,166,35,0.15);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .nav-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--sun);
+    letter-spacing: 1px;
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-soft);
+    text-decoration: none;
+    font-size: 0.88rem;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--sun); }
+
+  .nav-cta {
+    background: var(--sun);
+    color: var(--deep) !important;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    transition: all 0.2s !important;
+  }
+
+  .nav-cta:hover {
+    background: var(--sun-light) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(245,166,35,0.4);
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--sun);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 16px;
+  }
+
+  .section-desc {
+    color: var(--text-soft);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    max-width: 580px;
+    margin-bottom: 48px;
+  }
+
+  /* ── BLOG POSTS ── */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+  }
+
+  .post-card {
+    background: linear-gradient(145deg, rgba(22,50,79,0.8), rgba(15,42,68,0.6));
+    border: 1px solid rgba(245,166,35,0.12);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(245,166,35,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(245,166,35,0.15);
+  }
+
+  .post-thumb {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 52px;
+  }
+
+  .post-thumb-1 { background: linear-gradient(135deg, #1a3a5c, #2d6a4f); }
+  .post-thumb-2 { background: linear-gradient(135deg, #2d1b4e, #1a3a5c); }
+  .post-thumb-3 { background: linear-gradient(135deg, #4a2c2a, #1a3a5c); }
+  .post-thumb-4 { background: linear-gradient(135deg, #1a3a5c, #4a3728); }
+  .post-thumb-5 { background: linear-gradient(135deg, #1d3557, #457b9d); }
+  .post-thumb-6 { background: linear-gradient(135deg, #2d3a1e, #1a3a5c); }
+
+  .post-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(15,42,68,0.9) 100%);
+  }
+
+  .post-badge {
+    position: absolute;
+    top: 14px; left: 14px; z-index: 2;
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: rgba(245,166,35,0.9);
+    color: var(--deep);
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+  }
+
+  .post-body {
+    padding: 22px 24px 28px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .post-meta {
+    font-size: 11px;
+    color: var(--text-soft);
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .post-meta .dot {
+    width: 3px; height: 3px;
+    background: var(--text-soft);
+    border-radius: 50%;
+  }
+
+  .post-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+
+  .post-excerpt {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    line-height: 1.75;
+    flex: 1;
+    margin-bottom: 18px;
+  }
+
+  .read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--sun);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    transition: gap 0.2s;
+  }
+
+  .read-more:hover { gap: 10px; }
+
+  /* ── FEATURED POST ── */
+  .featured-post {
+    background: linear-gradient(135deg, rgba(22,50,79,0.9), rgba(15,26,55,0.9));
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 20px;
+    padding: 48px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 40px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .featured-post::before {
+    content: '☀';
+    position: absolute;
+    right: -20px; top: -30px;
+    font-size: 200px;
+    opacity: 0.04;
+    line-height: 1;
+  }
+
+  .featured-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sun);
+    border: 1px solid var(--sun);
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 18px;
+  }
+
+  .featured-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    color: var(--white);
+  }
+
+  .featured-excerpt {
+    color: var(--text-soft);
+    font-size: 0.93rem;
+    line-height: 1.85;
+    margin-bottom: 28px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--sun);
+    color: var(--deep);
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.25s;
+    border: none;
+    cursor: pointer;
+  }
+
+  .btn-primary:hover {
+    background: var(--sun-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(245,166,35,0.4);
+  }
+
+  .featured-visual {
+    background: linear-gradient(145deg, rgba(245,166,35,0.08), rgba(78,205,196,0.05));
+    border: 1px solid rgba(245,166,35,0.15);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .kpi-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .kpi-item:last-child { border-bottom: none; }
+
+  .kpi-label {
+    font-size: 0.83rem;
+    color: var(--text-soft);
+  }
+
+  .kpi-value {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--sun);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--sun), var(--accent));
+    border-radius: 2px;
+    animation: grow 2s ease-out forwards;
+    width: 0%;
+  }
+
+  @keyframes grow {
+    to { width: var(--target-width); }
+  }
+
+  /* ── ROADMAP ── */
+  .roadmap-section {
+    background: rgba(15,26,44,0.6);
+    border-top: 1px solid rgba(245,166,35,0.1);
+    border-bottom: 1px solid rgba(245,166,35,0.1);
+    margin: 0;
+    padding: 80px 0;
+  }
+
+  .roadmap-section > div {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    position: relative;
+    margin-top: 48px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 36px; left: 16.66%; right: 16.66%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--sun), var(--accent), var(--sun));
+  }
+
+  .timeline-item {
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .timeline-dot {
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .dot-1 {
+    background: linear-gradient(135deg, rgba(245,166,35,0.2), rgba(245,166,35,0.05));
+    border: 2px solid rgba(245,166,35,0.6);
+    box-shadow: 0 0 30px rgba(245,166,35,0.2);
+  }
+  .dot-2 {
+    background: linear-gradient(135deg, rgba(78,205,196,0.2), rgba(78,205,196,0.05));
+    border: 2px solid rgba(78,205,196,0.6);
+    box-shadow: 0 0 30px rgba(78,205,196,0.2);
+  }
+  .dot-3 {
+    background: linear-gradient(135deg, rgba(255,140,66,0.2), rgba(255,140,66,0.05));
+    border: 2px solid rgba(255,140,66,0.6);
+    box-shadow: 0 0 30px rgba(255,140,66,0.2);
+  }
+
+  .timeline-period {
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    color: var(--sun);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .timeline-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .timeline-desc {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    line-height: 1.7;
+  }
+
+  /* ── CTA SECTION ── */
+  .cta-section {
+    background: linear-gradient(135deg, rgba(245,166,35,0.12), rgba(78,205,196,0.06));
+    border: 1px solid rgba(245,166,35,0.2);
+    border-radius: 24px;
+    padding: 64px 48px;
+    text-align: center;
+    margin: 0 24px;
+    max-width: 1100px;
+    margin: 0 auto 80px;
+  }
+
+  .cta-section h2 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .cta-section p {
+    color: var(--text-soft);
+    font-size: 0.98rem;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto 32px;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 14px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-2px);
+  }
+
+  /* ── CONTACT BAR ── */
+  .contact-bar {
+    background: rgba(245,166,35,0.9);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .contact-bar span {
+    color: var(--deep);
+    font-weight: 700;
+    font-size: 0.88rem;
+  }
+
+  .contact-btn {
+    background: var(--deep);
+    color: var(--sun);
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 8px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .contact-btn:hover {
+    background: #0F2A44;
+    transform: scale(1.02);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: rgba(10, 16, 30, 0.95);
+    border-top: 1px solid rgba(245,166,35,0.1);
+    padding: 48px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: gap;
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif KR', serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: var(--sun);
+  }
+
+  .footer-copy {
+    font-size: 0.8rem;
+    color: var(--text-soft);
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0; z-index: 999;
+    background: rgba(10,16,30,0.92);
+    backdrop-filter: blur(10px);
+    overflow-y: auto;
+    padding: 40px 20px;
+  }
+
+  .modal-overlay.active { display: flex; justify-content: center; align-items: flex-start; }
+
+  .modal-box {
+    background: linear-gradient(145deg, #16324F, #0F2A44);
+    border: 1px solid rgba(245,166,35,0.25);
+    border-radius: 20px;
+    max-width: 720px;
+    width: 100%;
+    padding: 48px;
+    position: relative;
+    animation: slideUp 0.4s cubic-bezier(0.23,1,0.32,1);
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .modal-close {
+    position: absolute; top: 20px; right: 20px;
+    background: rgba(255,255,255,0.08);
+    border: none; color: var(--text);
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+
+  .modal-close:hover { background: rgba(255,255,255,0.15); }
+
+  .modal-tag {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--sun);
+    border: 1px solid var(--sun);
+    padding: 5px 14px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+
+  .modal-title {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+
+  .modal-meta {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+    margin-bottom: 28px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .modal-content {
+    font-size: 0.93rem;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .modal-content h3 {
+    font-family: 'Noto Serif KR', serif;
+    font-size: 1.1rem;
+    color: var(--sun-light);
+    margin: 24px 0 10px;
+  }
+
+  .modal-content p { margin-bottom: 16px; }
+
+  .modal-content ul {
+    padding-left: 20px;
+    margin-bottom: 16px;
+  }
+
+  .modal-content li {
+    margin-bottom: 8px;
+    color: var(--text-soft);
+  }
+
+  .modal-highlight {
+    background: rgba(245,166,35,0.08);
+    border-left: 3px solid var(--sun);
+    padding: 16px 20px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+    font-style: italic;
+    color: var(--text);
+  }
+
+  .modal-cta {
+    display: flex;
+    gap: 12px;
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    flex-wrap: wrap;
+  }
+
+  /* ── SCROLL ANIMATE ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.7s cubic-bezier(0.23,1,0.32,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .featured-post { grid-template-columns: 1fr; padding: 28px; }
+    .timeline { grid-template-columns: 1fr; }
+    .timeline::before { display: none; }
+    .posts-grid { grid-template-columns: 1fr; }
+    .cta-section { padding: 40px 24px; margin: 0 16px 60px; }
+    footer { flex-direction: column; text-align: center; padding: 32px 20px; }
+    .modal-box { padding: 28px 20px; }
+    .modal-title { font-size: 1.3rem; }
+  }
+
+  /* 상단 고정 공지 바 */
+  .top-bar {
+    background: linear-gradient(90deg, var(--panel), rgba(22,50,79,0.95));
+    border-bottom: 1px solid rgba(78,205,196,0.2);
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    font-size: 0.82rem;
+    color: var(--text-soft);
+  }
+
+  .top-bar strong { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- 상단 공지 바 -->
+<div class="top-bar">
+  <strong>🌿 현재 모집 중</strong>
+  <span>경기·부산·대구 권역 인증 파트너 시공사 — 선착순 5곳 추가 접수</span>
+  <a href="#contact" style="color:var(--sun); font-weight:700; text-decoration:none;">신청하기 →</a>
+</div>
+
+<!-- 네비게이션 -->
+<nav>
+  <a href="#" class="nav-logo">ECOSOLUTION <span>☀</span></a>
+  <ul class="nav-links">
+    <li><a href="#posts">블로그</a></li>
+    <li><a href="#roadmap">로드맵</a></li>
+    <li><a href="#kpi">목표 현황</a></li>
+    <li><a href="#contact" class="nav-cta">파트너 신청</a></li>
+  </ul>
+</nav>
+
+<!-- 히어로 -->
+<div class="hero">
+  <div class="sun-icon">☀</div>
+  <span class="hero-tag">태양광 금융 전문 플랫폼</span>
+  <h1>공사는 당신이,<br>금융은 에코솔루션이</h1>
+  <p>건축주의 자금 문제로 계약을 놓치고 있다면?<br>에코솔루션의 태양광 금융 솔루션으로 수주율을 20~30% 높이세요.</p>
+  <div class="hero-stats">
+    <div class="stat-box">
+      <div class="stat-num">100억</div>
+      <div class="stat-label">2026 상반기 목표</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">70곳</div>
+      <div class="stat-label">인증 파트너 목표</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-num">5천만</div>
+      <div class="stat-label">건당 평균 금융액</div>
+    </div>
+  </div>
+</div>
+
+<!-- 대표 포스트 -->
+<section id="posts">
+  <span class="section-label">Featured Post</span>
+  <div class="featured-post reveal">
+    <div>
+      <span class="featured-tag">시공사 필독</span>
+      <h2 class="featured-title">서울보증보험 거절된 태양광 시공사가 공사를 따내는 방법</h2>
+      <p class="featured-excerpt">
+        보증 심사에서 탈락했다고 영업을 포기하셨나요? 에코솔루션의 자체 심사 기준은 서울보증보험과 다릅니다. 과거 실적·유지보수 역량·지역 평판 3가지 항목으로 60점 이상이면 인증 파트너 자격을 부여합니다. 지금 이 글을 읽는 시공사 대표님, 기회가 있습니다.
+      </p>
+      <button class="btn-primary" onclick="openModal('post1')">전체 글 읽기 →</button>
+    </div>
+    <div class="featured-visual" id="kpi">
+      <div style="font-size:0.78rem; letter-spacing:2px; color:var(--accent); text-transform:uppercase; margin-bottom:20px;">2026 상반기 KPI 현황</div>
+      <div class="kpi-item">
+        <span class="kpi-label">누적 인증 파트너</span>
+        <span class="kpi-value">목표 70곳</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="--target-width:25%"></div></div>
+      <div class="kpi-item" style="margin-top:12px">
+        <span class="kpi-label">월 금융 취급액</span>
+        <span class="kpi-value">목표 17.5억</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="--target-width:40%; animation-delay:0.3s"></div></div>
+      <div class="kpi-item" style="margin-top:12px">
+        <span class="kpi-label">상반기 누적 취급액</span>
+        <span class="kpi-value">목표 100억</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="--target-width:15%; animation-delay:0.6s"></div></div>
+      <div class="kpi-item" style="margin-top:12px">
+        <span class="kpi-label">월 인바운드 문의</span>
+        <span class="kpi-value">목표 50건+</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="--target-width:20%; animation-delay:0.9s"></div></div>
+    </div>
+  </div>
+
+  <!-- 블로그 글 목록 -->
+  <div class="posts-grid">
+
+    <div class="post-card reveal" onclick="openModal('post2')">
+      <div class="post-thumb post-thumb-2">
+        <span style="position:relative;z-index:2">⚡</span>
+        <span class="post-badge">금융 구조</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span>2026.01</span><span class="dot"></span><span>금융 가이드</span>
+        </div>
+        <h3 class="post-title">에너지 공사업 자격 없어도 되는 태양광 금융 구조 해설</h3>
+        <p class="post-excerpt">자격증 없이도 참여 가능한 금융 구조가 있습니다. 에코솔루션 파트너 계약 하나로 건축주의 자금 조달 문제를 해결하는 방법을 공개합니다.</p>
+        <a class="read-more">자세히 보기 <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="post-card reveal" onclick="openModal('post3')">
+      <div class="post-thumb post-thumb-3">
+        <span style="position:relative;z-index:2">💰</span>
+        <span class="post-badge">대금 회수</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span>2026.02</span><span class="dot"></span><span>영업 전략</span>
+        </div>
+        <h3 class="post-title">태양광 공사 대금 100% 회수하는 금융 구조 (시공사 필독)</h3>
+        <p class="post-excerpt">공사 완료 후 대금 회수에 불안하신가요? 금융사가 직접 정산하는 구조로 에코솔루션 파트너가 되면 대금 회수 불확실성이 사라집니다.</p>
+        <a class="read-more">자세히 보기 <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="post-card reveal" onclick="openModal('post4')">
+      <div class="post-thumb post-thumb-4">
+        <span style="position:relative;z-index:2">🤝</span>
+        <span class="post-badge">영업 스킬</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span>2026.02</span><span class="dot"></span><span>수주 전략</span>
+        </div>
+        <h3 class="post-title">건축주 목돈 없이 계약하게 만드는 영업 전략 (시공사용)</h3>
+        <p class="post-excerpt">"돈이 없어서요"라는 말에 계약을 포기하셨나요? 에코솔루션 금융 솔루션을 영업 무기로 활용하면 경쟁 시공사보다 수주율이 20~30% 높아집니다.</p>
+        <a class="read-more">자세히 보기 <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="post-card reveal" onclick="openModal('post5')">
+      <div class="post-thumb post-thumb-5">
+        <span style="position:relative;z-index:2">📈</span>
+        <span class="post-badge">실제 사례</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span>2026.03</span><span class="dot"></span><span>파트너 성공</span>
+        </div>
+        <h3 class="post-title">에코솔루션 인증 파트너 실제 사례 — 월 3건 → 8건 수주</h3>
+        <p class="post-excerpt">경기 남부에서 활동하는 A 시공사 대표님의 생생한 이야기. 파트너 가입 3개월 만에 월 수주 건수가 2.5배 늘어난 비결을 공개합니다.</p>
+        <a class="read-more">자세히 보기 <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="post-card reveal" onclick="openModal('post6')">
+      <div class="post-thumb post-thumb-6">
+        <span style="position:relative;z-index:2">🏆</span>
+        <span class="post-badge">파트너 제도</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span>2026.03</span><span class="dot"></span><span>파트너 가이드</span>
+        </div>
+        <h3 class="post-title">에코솔루션 인증 파트너 vs 일반 시공사 — 수수료 구조 비교</h3>
+        <p class="post-excerpt">인증 파트너가 되면 기본 수수료 외에 하위 파트너 연결 건당 추가 0.3% 수수료, 우선 심사(2~3영업일), 전담 담당자 배정까지 받을 수 있습니다.</p>
+        <a class="read-more">자세히 보기 <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="post-card reveal" onclick="openModal('post7')">
+      <div class="post-thumb post-thumb-1">
+        <span style="position:relative;z-index:2">🗺️</span>
+        <span class="post-badge">거점 모집</span>
+      </div>
+      <div class="post-body">
+        <div class="post-meta">
+          <span>2026.04</span><span class="dot"></span><span>지역 네트워크</span>
+        </div>
+        <h3 class="post-title">경기 남부·북부·부산 거점 파트너 모집 — 총판형 파트너의 특별 혜택</h3>
+        <p class="post-excerpt">거점(총판형) 파트너는 지역 내 하위 시공사를 연결할수록 추가 수익이 발생합니다. 수도권 2개 권역 + 광역시 1곳 현재 집중 모집 중.</p>
+        <a class="read-more">자세히 보기 <span>→</span></a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 로드맵 -->
+<div class="roadmap-section" id="roadmap">
+  <div>
+    <span class="section-label">2026 Strategy</span>
+    <h2 class="section-title reveal">3단계 전략 실행 로드맵</h2>
+    <p class="section-desc reveal">표준화 → 거점 확보 → 자동화, 이 순서를 반드시 지킵니다.</p>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot dot-1">📦</div>
+        <div class="timeline-period">1~2월 · STEP 1</div>
+        <h3 class="timeline-title">표준화</h3>
+        <p class="timeline-desc">자체 시공사 스코어링 모델 완성 + 인증 파트너 패키지 제작. 팔 수 있는 무기를 만드는 단계.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot dot-2">🗺️</div>
+        <div class="timeline-period">2~4월 · STEP 2</div>
+        <h3 class="timeline-title">거점 확보</h3>
+        <p class="timeline-desc">수도권 2곳 + 광역시 1곳, 총 3개 거점 파트너 계약 완료. 파트너 30곳 달성 목표.</p>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot dot-3">🤖</div>
+        <div class="timeline-period">3~6월 · STEP 3</div>
+        <h3 class="timeline-title">자동화</h3>
+        <p class="timeline-desc">블로그 SEO + 웨비나 + 오픈채팅 등 인바운드 채널 가동. 파트너 70곳 → 월 17억+ 자동화.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA 섹션 -->
+<section id="contact" style="padding-top:80px; padding-bottom:0">
+  <div class="cta-section reveal">
+    <h2>지금 인증 파트너를 신청하세요</h2>
+    <p>공사를 따내는 건 당신이 합니다.<br>건축주가 돈이 없어서 계약을 못 하는 문제만 저희가 해결합니다.</p>
+    <div class="cta-buttons">
+      <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">📋 파트너 신청서 작성</button>
+      <button class="btn-secondary" onclick="openModal('kakao')">💬 카카오 오픈채팅 문의</button>
+    </div>
+  </div>
+</section>
+
+<!-- 연락처 바 -->
+<div class="contact-bar" style="margin-top:60px">
+  <span>☀ ECOSOLUTION 태양광 금융 전문 플랫폼</span>
+  <span>|</span>
+  <span>문의: 카카오 오픈채팅 · 구글 파트너 신청폼</span>
+  <a href="#" class="contact-btn">상담 신청</a>
+</div>
+
+<!-- 푸터 -->
+<footer>
+  <div class="footer-logo">ECOSOLUTION ☀</div>
+  <div class="footer-copy">© 2026 에코솔루션. 태양광 금융 전문 블로그.<br>본 블로그의 모든 내용은 시공사 대표를 위한 정보 제공 목적입니다.</div>
+</footer>
+
+<!-- ========== MODALS ========== -->
+
+<!-- post1 -->
+<div class="modal-overlay" id="modal-post1">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post1')">✕</button>
+    <span class="modal-tag">시공사 필독</span>
+    <h2 class="modal-title">서울보증보험 거절된 태양광 시공사가 공사를 따내는 방법</h2>
+    <div class="modal-meta">2026년 1월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <p>보증 심사 탈락 통보를 받으셨나요? 서울보증보험의 심사 기준이 모든 시공사에게 공평한 기회를 주지 않는다는 사실을 알고 계셨나요?</p>
+      <div class="modal-highlight">
+        "에코솔루션은 서울보증보험 기준 대신, 우리만의 심사 기준으로 시공사를 평가합니다."
+      </div>
+      <h3>에코솔루션 자체 스코어링 모델</h3>
+      <p>총 100점 기준, 60점 이상이면 인증 파트너 자격이 부여됩니다.</p>
+      <ul>
+        <li><strong>과거 시공 실적 (40점)</strong> — 최근 3년 완공 건수, 하자 발생률</li>
+        <li><strong>O&M 유지보수 역량 (30점)</strong> — 전담 인력 보유, A/S 응답 체계</li>
+        <li><strong>지역 내 평판 (30점)</strong> — 건축주 레퍼런스, 업계 평판</li>
+      </ul>
+      <p>60점 미만 시공사도 하자보수보증금 적립(계약금의 10%) 조건으로 조건부 파트너 자격이 주어집니다. 탈락이 끝이 아닙니다.</p>
+      <h3>지금 신청해야 하는 이유</h3>
+      <p>현재 수도권 및 광역시 권역에서 인증 파트너를 선착순으로 모집하고 있습니다. 먼저 가입한 파트너가 거점 총판 혜택까지 가져갑니다.</p>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post1'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">파트너 신청하기 →</button>
+      <button class="btn-secondary" onclick="closeModal('post1')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- post2 -->
+<div class="modal-overlay" id="modal-post2">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post2')">✕</button>
+    <span class="modal-tag">금융 구조</span>
+    <h2 class="modal-title">에너지 공사업 자격 없어도 되는 태양광 금융 구조 해설</h2>
+    <div class="modal-meta">2026년 1월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <p>많은 중소 시공사가 에너지 공사업 자격 미취득을 이유로 금융 연계에서 소외되어 왔습니다. 에코솔루션은 이 문제를 해결하기 위한 금융 구조를 설계했습니다.</p>
+      <h3>핵심 공식</h3>
+      <div class="modal-highlight">
+        인증 파트너 70곳 × 월 0.5건 × 5,000만원 = 월 17.5억 → 상반기 100억+ 달성
+      </div>
+      <h3>파트너가 받는 수익</h3>
+      <ul>
+        <li>금융 주선 수수료: 취급액의 1~1.5%</li>
+        <li>파트너 관리 수수료: 건당 20~30만원</li>
+        <li>거점 파트너 추가 수수료: 하위 파트너 연결 건당 0.3%</li>
+      </ul>
+      <p>자격증이 없어도, 에코솔루션 인증 파트너 계약서 하나면 건축주에게 금융 솔루션을 제안할 수 있습니다.</p>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post2'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">파트너 신청하기 →</button>
+      <button class="btn-secondary" onclick="closeModal('post2')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- post3 -->
+<div class="modal-overlay" id="modal-post3">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post3')">✕</button>
+    <span class="modal-tag">대금 회수</span>
+    <h2 class="modal-title">태양광 공사 대금 100% 회수하는 금융 구조</h2>
+    <div class="modal-meta">2026년 2월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <p>공사를 마쳤는데 건축주가 잔금을 미루거나, 자금난으로 계약이 취소되는 상황을 경험하신 적 있으신가요? 에코솔루션 금융 구조는 이 문제를 구조적으로 해결합니다.</p>
+      <h3>에코솔루션 대금 정산 구조</h3>
+      <ul>
+        <li>금융사가 건축주에게 직접 대출 실행</li>
+        <li>대출금이 시공사 계좌로 직접 입금</li>
+        <li>건축주 연체 리스크를 에코솔루션이 흡수</li>
+      </ul>
+      <div class="modal-highlight">
+        "공사 완료 즉시 금융사로부터 공사대금을 정산받습니다. 건축주의 자금 사정을 걱정할 필요가 없습니다."
+      </div>
+      <h3>리스크 관리 구조</h3>
+      <p>건축주 금융 취소·연체 발생 시, 에코솔루션과 금융사 간 사전 협약으로 파트너 시공사의 책임 범위가 명확히 한정됩니다.</p>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post3'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">파트너 신청하기 →</button>
+      <button class="btn-secondary" onclick="closeModal('post3')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- post4 -->
+<div class="modal-overlay" id="modal-post4">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post4')">✕</button>
+    <span class="modal-tag">영업 스킬</span>
+    <h2 class="modal-title">건축주 목돈 없이 계약하게 만드는 영업 전략</h2>
+    <div class="modal-meta">2026년 2월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <p>영업 현장에서 가장 많이 듣는 말은 "지금 목돈이 없어서요"입니다. 이 한 마디로 계약이 무산되는 경험, 에코솔루션이 해결해 드립니다.</p>
+      <h3>영업 핵심 메시지 3가지</h3>
+      <ul>
+        <li><strong>포인트 1.</strong> 경쟁사가 제공 못 하는 금융 솔루션 → 수주율 20~30% 향상</li>
+        <li><strong>포인트 2.</strong> 공사대금 회수 불확실성 제거 → 금융사가 직접 정산</li>
+        <li><strong>포인트 3.</strong> 하위 시공사 연결할수록 추가 수수료 수익 발생</li>
+      </ul>
+      <div class="modal-highlight">
+        "공사를 따내는 건 당신들이 합니다. 건축주가 돈이 없어서 계약을 못 하는 문제만 저희가 해결해 드립니다."
+      </div>
+      <h3>파트너에게 제공하는 영업 패키지</h3>
+      <ul>
+        <li>1페이지 요약 상품 설명서 (건축주용)</li>
+        <li>FAQ 10문항 (가장 많이 묻는 질문 정리)</li>
+        <li>금융 신청 프로세스 흐름도</li>
+        <li>에코솔루션 인증 파트너 배지 및 로고</li>
+      </ul>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post4'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">파트너 신청하기 →</button>
+      <button class="btn-secondary" onclick="closeModal('post4')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- post5 -->
+<div class="modal-overlay" id="modal-post5">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post5')">✕</button>
+    <span class="modal-tag">실제 사례</span>
+    <h2 class="modal-title">에코솔루션 인증 파트너 실제 사례<br>월 3건 → 8건 수주</h2>
+    <div class="modal-meta">2026년 3월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <p>경기 남부에서 태양광 시공을 하는 A 대표님은 파트너 가입 전 월 평균 3건을 수주하고 있었습니다. 에코솔루션 인증 파트너 가입 3개월 후, 월 8건으로 수주가 늘었습니다.</p>
+      <div class="modal-highlight">
+        "건축주한테 '금융이 된다'는 말 한 마디가 이렇게 달라질 줄 몰랐습니다. 경쟁 시공사는 못 하는 제안을 저만 할 수 있으니까요."
+      </div>
+      <h3>성과 요약</h3>
+      <ul>
+        <li>파트너 가입 전: 월 3건 수주</li>
+        <li>파트너 가입 1개월 후: 월 5건</li>
+        <li>파트너 가입 3개월 후: 월 8건</li>
+        <li>하위 파트너 연결 추가 수수료: 월 약 80만원</li>
+      </ul>
+      <h3>핵심 비결</h3>
+      <p>기존에 자금 문제로 포기했던 고객에게 에코솔루션 금융 솔루션을 제안하자, 계약 전환율이 크게 올랐습니다. 추가 광고비 없이 기존 영업만으로 달성한 결과입니다.</p>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post5'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">나도 파트너 신청 →</button>
+      <button class="btn-secondary" onclick="closeModal('post5')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- post6 -->
+<div class="modal-overlay" id="modal-post6">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post6')">✕</button>
+    <span class="modal-tag">파트너 제도</span>
+    <h2 class="modal-title">인증 파트너 vs 일반 시공사 수수료 구조 비교</h2>
+    <div class="modal-meta">2026년 3월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <h3>파트너 등급별 혜택 비교</h3>
+      <ul>
+        <li><strong>일반 인증 파트너</strong>: 건당 기본 수수료 + 일반 심사(5~7영업일) + 공통 매뉴얼</li>
+        <li><strong>거점(총판형) 파트너</strong>: 기본 수수료 + 하위 파트너 건당 추가 0.3% + 우선 심사(2~3영업일) + 전담 담당자 + 지역 광고비 지원</li>
+      </ul>
+      <div class="modal-highlight">
+        거점 파트너는 본인 수주 외에도 지역 내 시공사를 연결하는 것만으로 매달 추가 수익을 얻습니다.
+      </div>
+      <h3>연회비 구조</h3>
+      <ul>
+        <li>인증 파트너 연회비: 연 50~100만원</li>
+        <li>파트너 관리 수수료: 건당 20~30만원</li>
+        <li>금융 주선 수수료: 취급액의 1~1.5%</li>
+      </ul>
+      <p>100억 취급액 기준 에코솔루션의 총 추정 수익은 2~3억원(상반기 기준)이며, 이 중 파트너에게 돌아가는 몫이 상당합니다.</p>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post6'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">파트너 신청하기 →</button>
+      <button class="btn-secondary" onclick="closeModal('post6')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- post7 -->
+<div class="modal-overlay" id="modal-post7">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('post7')">✕</button>
+    <span class="modal-tag">거점 모집</span>
+    <h2 class="modal-title">경기 남부·북부·부산 거점 파트너 모집</h2>
+    <div class="modal-meta">2026년 4월 발행 &nbsp;·&nbsp; 에코솔루션 편집팀</div>
+    <div class="modal-content">
+      <p>에코솔루션은 전국 동시 확장 대신 3개 거점 집중 전략을 선택했습니다. 거점 파트너 선정 기준과 기대 효과를 공개합니다.</p>
+      <h3>거점 지역별 모집 현황</h3>
+      <ul>
+        <li><strong>수도권 A (경기 남부)</strong>: 연 시공 10건 이상, 자체 영업망 보유 시공사</li>
+        <li><strong>수도권 B (경기 북부)</strong>: 연 시공 8건 이상, 태양광 전문 시공사</li>
+        <li><strong>광역시 (부산·대구)</strong>: 연 시공 5건 이상, 지역 금융 접근이 어려웠던 중소 시공사</li>
+      </ul>
+      <div class="modal-highlight">
+        거점 파트너 1곳은 하위 시공사 5~10곳을 자동으로 끌어들이는 네트워크 효과를 만들어냅니다.
+      </div>
+      <h3>거점 파트너 특별 혜택</h3>
+      <ul>
+        <li>전담 담당자 배정 + 월 1회 전략 미팅</li>
+        <li>지역 광고비 일부 지원</li>
+        <li>공동 홍보물 제작 지원</li>
+        <li>우선 심사 (2~3영업일)</li>
+      </ul>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="closeModal('post7'); window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">거점 파트너 신청 →</button>
+      <button class="btn-secondary" onclick="closeModal('post7')">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 파트너 신청 모달 -->
+<div class="modal-overlay" id="modal-apply">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal('apply')">✕</button>
+    <span class="modal-tag">파트너 신청</span>
+    <h2 class="modal-title">에코솔루션 인증 파트너 신청</h2>
+    <div class="modal-meta">아래 정보를 입력 후 제출하시면 2~3 영업일 내 연락드립니다.</div>
+    <div class="modal-content">
+      <div style="display:grid; gap:14px; margin-bottom:20px;">
+        <div>
+          <label style="font-size:0.82rem; color:var(--text-soft); display:block; margin-bottom:6px;">회사명 / 대표자명</label>
+          <input type="text" placeholder="예: (주)한빛태양광 / 홍길동" style="width:100%; padding:12px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--text); font-size:0.9rem; outline:none;">
+        </div>
+        <div>
+          <label style="font-size:0.82rem; color:var(--text-soft); display:block; margin-bottom:6px;">활동 지역</label>
+          <input type="text" placeholder="예: 경기 남부 (수원, 용인, 평택 등)" style="width:100%; padding:12px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--text); font-size:0.9rem; outline:none;">
+        </div>
+        <div>
+          <label style="font-size:0.82rem; color:var(--text-soft); display:block; margin-bottom:6px;">연간 시공 실적 (건수)</label>
+          <input type="text" placeholder="예: 연 12건" style="width:100%; padding:12px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--text); font-size:0.9rem; outline:none;">
+        </div>
+        <div>
+          <label style="font-size:0.82rem; color:var(--text-soft); display:block; margin-bottom:6px;">연락처 (전화 또는 카카오ID)</label>
+          <input type="text" placeholder="010-0000-0000 또는 카카오ID" style="width:100%; padding:12px 16px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); border-radius:8px; color:var(--text); font-size:0.9rem; outline:none;">
+        </div>
+      </div>
+      <div style="background:rgba(245,166,35,0.07); border:1px solid rgba(245,166,35,0.2); border-radius:10px; padding:14px 18px; font-size:0.82rem; color:var(--text-soft); line-height:1.7;">
+        ✅ 제출 후 2~3 영업일 내 전담 담당자가 연락드립니다.<br>
+        ✅ 서울보증보험 거절 여부와 관계없이 신청 가능합니다.<br>
+        ✅ 거점 파트너 희망 시 메모란에 기재 부탁드립니다.
+      </div>
+    </div>
+    <div class="modal-cta">
+      <button class="btn-primary" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLScuFEVUVSQFBvF70HDP6q1DII_407ArDipNqjk37y9sUB0Gxw/viewform?usp=header')">신청서 제출하기 →</button>
+      <button class="btn-secondary" onclick="closeModal('apply')">취소</button>
+    </div>
+  </div>
+</div>
+
+<!-- 카카오 오픈채팅 -->
+<div class="modal-overlay" id="modal-kakao">
+  <div class="modal-box" style="max-width:460px; text-align:center; padding:56px 40px;">
+    <button class="modal-close" onclick="closeModal('kakao')">✕</button>
+    <div style="font-size:64px; margin-bottom:20px;">💬</div>
+    <h2 class="modal-title" style="font-size:1.4rem;">카카오 오픈채팅으로<br>바로 문의하세요</h2>
+    <p style="color:var(--text-soft); font-size:0.9rem; line-height:1.8; margin:16px 0 32px;">익명으로 빠르게 문의 가능합니다.<br>운영시간: 평일 오전 9시 ~ 오후 6시</p>
+    <button class="btn-primary" style="width:100%; justify-content:center; font-size:1rem; padding:16px;" onclick="window.open('https://open.kakao.com/o/sr1KUAgh')">
+      카카오 오픈채팅 열기 →
+    </button>
+    <p style="font-size:0.78rem; color:var(--text-soft); margin-top:20px;">※ 모든 블로그 글 하단에서도 문의 가능합니다</p>
+  </div>
+</div>
+
+<script>
+  // 모달 열기/닫기
+  function openModal(id) {
+    document.getElementById('modal-' + id).classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal(id) {
+    document.getElementById('modal-' + id).classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // 오버레이 클릭 시 닫기
+  document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', function(e) {
+      if (e.target === this) {
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // 스크롤 reveal 애니메이션
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // 프로그레스 바 애니메이션
+  const progressObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.progress-fill').forEach(bar => {
+          bar.style.width = bar.style.getPropertyValue('--target-width') || '50%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const featuredPost = document.querySelector('.featured-post');
+  if (featuredPost) progressObserver.observe(featuredPost);
+
+  // ESC 키로 모달 닫기
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      document.querySelectorAll('.modal-overlay.active').forEach(el => {
+        el.classList.remove('active');
+      });
+      document.body.style.overflow = '';
+    }
+  });
+</script>
+
+</body>
+</html>
