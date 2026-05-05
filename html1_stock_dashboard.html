@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>한화오션 현재 주가 지표</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: transparent;
+    padding: 16px 0;
+  }
+  .card-wrapper {
+    background: linear-gradient(135deg, #f0f7ff 0%, #e8f4fd 50%, #f5f0ff 100%);
+    border: 1px solid #d0e8ff;
+    border-radius: 20px;
+    padding: 28px 28px 24px;
+    max-width: 780px;
+    margin: 0 auto;
+    box-shadow: 0 4px 24px rgba(0,80,180,0.08);
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .title-block h2 {
+    font-size: 18px;
+    font-weight: 900;
+    color: #1a2f6e;
+    letter-spacing: -0.3px;
+  }
+  .title-block p {
+    font-size: 12px;
+    color: #6b7dab;
+    margin-top: 3px;
+  }
+  .badge {
+    background: #1a2f6e;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 5px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+  }
+  .price-block {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #c5d8f0;
+  }
+  .main-price {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 42px;
+    font-weight: 600;
+    color: #1a2f6e;
+    line-height: 1;
+  }
+  .price-sub {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-bottom: 5px;
+  }
+  .change-up {
+    font-size: 16px;
+    font-weight: 700;
+    color: #c0392b;
+  }
+  .date-label {
+    font-size: 11px;
+    color: #8899bb;
+  }
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) {
+    .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    .main-price { font-size: 32px; }
+  }
+  .metric-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,50,150,0.06);
+    border: 1px solid #e2eeff;
+  }
+  .metric-label {
+    font-size: 10px;
+    color: #8899bb;
+    font-weight: 500;
+    margin-bottom: 5px;
+    letter-spacing: 0.2px;
+  }
+  .metric-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a2f6e;
+  }
+  .metric-value.highlight { color: #2563eb; }
+  .metric-value.up { color: #c0392b; }
+  .bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1a2f6e;
+    border-radius: 12px;
+    padding: 14px 18px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .analyst-block {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .analyst-count {
+    font-size: 13px;
+    color: #a8c0f0;
+    font-weight: 500;
+  }
+  .analyst-count span {
+    color: #fff;
+    font-weight: 700;
+  }
+  .opinion-pill {
+    background: #2ecc71;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .target-block {
+    text-align: right;
+  }
+  .target-label { font-size: 10px; color: #a8c0f0; }
+  .target-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .upside { font-size: 12px; color: #7fdbff; margin-top: 1px; }
+  .source-note {
+    text-align: right;
+    font-size: 10px;
+    color: #9aadcc;
+    margin-top: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="card-wrapper">
+  <div class="header-row">
+    <div class="title-block">
+      <h2>한화오션 (042660) 현재 주가 현황</h2>
+      <p>KOSPI 상장 | 조선·방산 복합기업</p>
+    </div>
+    <span class="badge">2026.05.04 기준</span>
+  </div>
+
+  <div class="price-block">
+    <div class="main-price">133,000<span style="font-size:20px;color:#8899bb;">원</span></div>
+    <div class="price-sub">
+      <span class="change-up">▲ 1,200 (+0.91%)</span>
+      <span class="date-label">전일 종가 131,800원</span>
+    </div>
+  </div>
+
+  <div class="metrics-grid">
+    <div class="metric-card">
+      <div class="metric-label">52주 최고가</div>
+      <div class="metric-value up">154,800원</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">52주 최저가</div>
+      <div class="metric-value">71,500원</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">시가총액</div>
+      <div class="metric-value highlight">40.4조원</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">EPS (TTM)</div>
+      <div class="metric-value">3,409원</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">2026 매출 전망</div>
+      <div class="metric-value highlight">13.8조원</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">2026 영업이익 전망</div>
+      <div class="metric-value highlight">1.65조원</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">LNG 수주잔고</div>
+      <div class="metric-value">65척</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-label">외국인 보유율</div>
+      <div class="metric-value">11.13%</div>
+    </div>
+  </div>
+
+  <div class="bottom-row">
+    <div class="analyst-block">
+      <div class="analyst-count"><span>19명</span> 매수 | 1명 매도</div>
+      <span class="opinion-pill">적극매수</span>
+    </div>
+    <div class="target-block">
+      <div class="target-label">12개월 목표주가 컨센서스</div>
+      <div class="target-value">164,500원</div>
+      <div class="upside">현재 대비 ↑ +23.68% 상승여력</div>
+    </div>
+  </div>
+  <div class="source-note">※ 출처: Investing.com, 한국경제 유레카 (2026.05.04 기준) | 투자 권유 아님</div>
+</div>
+</body>
+</html>
