@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>미국 주택건설사 순위 — 버크셔 인수 후 변화</title>
+  <meta property="og:title" content="미국 주택건설사 순위 — 버크셔 테일러모리슨 인수 후 판도 변화" />
+  <meta property="og:description" content="버크셔가 테일러모리슨을 인수하면 미국 4위 주택건설그룹이 됩니다. 주요 홈빌더 순위와 시장점유율을 비교합니다." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1582407947304-fd86f028f716?w=1200&h=630&fit=crop" />
+  <meta property="og:url" content="https://yourblog.com/berkshire-taylor-morrison-homebuilder-ranking" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Noto Sans KR',sans-serif;background:#cfd9f7;padding:28px 16px;}
+
+    .outer-card{
+      background:#ffffff;
+      border-radius:20px;
+      padding:28px 24px;
+      max-width:720px;
+      margin:0 auto;
+      box-shadow:0 8px 36px rgba(13,31,78,0.28), 0 2px 8px rgba(13,31,78,0.14);
+      border:2px solid #b8ccff;
+    }
+
+    .card-header{text-align:center;margin-bottom:24px;}
+    .badge{display:inline-block;background:#dce8ff;color:#0d3b8e;font-size:11px;font-weight:700;padding:5px 16px;border-radius:20px;margin-bottom:10px;border:1px solid #99baff;}
+    .card-header h2{font-size:18px;font-weight:700;color:#0d1f4e;margin-bottom:4px;}
+    .card-header p{font-size:12px;color:#7a8fb5;}
+
+    /* 랭킹 행 */
+    .rank-row{
+      background:#f2f6ff;
+      border-radius:14px;
+      border:2px solid #d4e0ff;
+      padding:16px 18px;
+      margin-bottom:10px;
+      display:grid;
+      grid-template-columns:44px 1fr auto;
+      align-items:center;
+      gap:14px;
+      transition:box-shadow 0.2s,transform 0.2s;
+      box-shadow:0 2px 8px rgba(13,31,78,0.10);
+    }
+    .rank-row:hover{box-shadow:0 6px 20px rgba(13,31,78,0.18);transform:translateX(3px);}
+    .rank-row:last-child{margin-bottom:0;}
+
+    /* 버크셔 강조 행 */
+    .rank-row.berk{
+      background:linear-gradient(90deg,#e0edff,#e8f5e9);
+      border:2px solid #5a9aff;
+      box-shadow:0 4px 18px rgba(21,101,192,0.22);
+    }
+
+    .rank-badge{
+      width:40px;height:40px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      font-family:'Inter',sans-serif;font-weight:800;font-size:15px;color:#fff;
+      flex-shrink:0;
+      box-shadow:0 2px 8px rgba(0,0,0,0.18);
+    }
+    .r1{background:#f9a825;}
+    .r2{background:#78909c;}
+    .r3{background:#8d6e63;}
+    .r4{background:linear-gradient(135deg,#1040a0,#1565c0);}
+    .r5,.r6,.r7{background:#b0bec5;}
+
+    .company-name{font-size:14px;font-weight:700;color:#0d1f4e;margin-bottom:2px;}
+    .company-ticker{font-family:'Inter',sans-serif;font-size:11px;color:#7a8fb5;}
+    .company-desc{font-size:11px;color:#5a6a8a;margin-top:3px;}
+
+    .new-badge{
+      display:inline-block;background:#1040a0;color:#fff;
+      font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;
+      margin-left:6px;vertical-align:middle;
+    }
+
+    /* 점유율 바 */
+    .share-wrap{min-width:100px;text-align:right;}
+    .share-pct{font-family:'Inter',sans-serif;font-size:13px;font-weight:800;margin-bottom:5px;}
+    .s-bar-bg{height:8px;background:#dce6ff;border-radius:8px;overflow:hidden;width:90px;margin-left:auto;}
+    .s-bar-fill{height:100%;border-radius:8px;display:block;}
+
+    .note-box{
+      background:#edfbee;
+      border:2px solid #7ecb82;
+      border-radius:14px;
+      padding:16px 18px;
+      margin-top:18px;
+      font-size:12px;color:#155a1a;line-height:1.7;
+      box-shadow:0 2px 8px rgba(46,125,50,0.10);
+    }
+    .note-box strong{color:#0d3d10;}
+
+    .source-note{text-align:center;font-size:11px;color:#8090b8;margin-top:16px;}
+  </style>
+</head>
+<body>
+  <div class="outer-card">
+    <div class="card-header">
+      <div class="badge">🏆 미국 홈빌더 순위</div>
+      <h2>버크셔 인수 후 — 미국 주택건설사 판도 변화</h2>
+      <p>2025년 주택 마감(Closings) 기준 · ResiClub Analytics 분석</p>
+    </div>
+
+    <!-- 1위 -->
+    <div class="rank-row">
+      <div class="rank-badge r1">1</div>
+      <div>
+        <div class="company-name">D.R. Horton</div>
+        <div class="company-ticker">NYSE: DHI</div>
+        <div class="company-desc">미국 최대 홈빌더 · 입문형 강세</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#e65100;">~12%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:85%;background:linear-gradient(90deg,#f9a825,#ffd54f);"></span></div>
+      </div>
+    </div>
+
+    <!-- 2위 -->
+    <div class="rank-row">
+      <div class="rank-badge r2">2</div>
+      <div>
+        <div class="company-name">Lennar <span style="font-size:10px;color:#1040a0;">★버크셔 지분보유</span></div>
+        <div class="company-ticker">NYSE: LEN</div>
+        <div class="company-desc">다양한 가격대 · 금융서비스 통합</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#424242;">~10%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:72%;background:linear-gradient(90deg,#78909c,#b0bec5);"></span></div>
+      </div>
+    </div>
+
+    <!-- 3위 -->
+    <div class="rank-row">
+      <div class="rank-badge r3">3</div>
+      <div>
+        <div class="company-name">PulteGroup</div>
+        <div class="company-ticker">NYSE: PHM</div>
+        <div class="company-desc">Pulte · Centex · Del Webb 브랜드</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#5d4037;">~8%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:58%;background:linear-gradient(90deg,#8d6e63,#bcaaa4);"></span></div>
+      </div>
+    </div>
+
+    <!-- 4위 버크셔 (강조) -->
+    <div class="rank-row berk">
+      <div class="rank-badge r4">4</div>
+      <div>
+        <div class="company-name">
+          버크셔 해서웨이<span class="new-badge">NEW</span>
+        </div>
+        <div class="company-ticker">NYSE: BRK.B &nbsp;|&nbsp; Clayton Homes + Taylor Morrison 통합</div>
+        <div class="company-desc">제조주택(Clayton) + 현장시공(Taylor Morrison) 통합 플랫폼</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#0d3b8e;">~6%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:44%;background:linear-gradient(90deg,#1040a0,#42a5f5);"></span></div>
+      </div>
+    </div>
+
+    <!-- 5위 -->
+    <div class="rank-row">
+      <div class="rank-badge r5">5</div>
+      <div>
+        <div class="company-name">NVR Inc <span style="font-size:10px;color:#1040a0;">★버크셔 포트폴리오</span></div>
+        <div class="company-ticker">NYSE: NVR</div>
+        <div class="company-desc">Ryan Homes · 자산경량화 전략</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#546e7a;">~4%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:30%;background:#90a4ae;"></span></div>
+      </div>
+    </div>
+
+    <!-- 6위 테일러모리슨(인수 전) -->
+    <div class="rank-row">
+      <div class="rank-badge r6" style="font-size:12px;">6→</div>
+      <div>
+        <div class="company-name">Taylor Morrison <span style="color:#c62828;font-size:11px;">(인수 전 6위)</span></div>
+        <div class="company-ticker">NYSE: TMHC → 상장폐지 예정</div>
+        <div class="company-desc">Taylor Morrison · Esplanade · Yardly</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#78909c;">~3%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:22%;background:#b0bec5;"></span></div>
+      </div>
+    </div>
+
+    <!-- 7위 -->
+    <div class="rank-row">
+      <div class="rank-badge r7">7</div>
+      <div>
+        <div class="company-name">Meritage Homes</div>
+        <div class="company-ticker">NYSE: MTH</div>
+        <div class="company-desc">에너지 효율 주택 특화</div>
+      </div>
+      <div class="share-wrap">
+        <div class="share-pct" style="color:#78909c;">~3%</div>
+        <div class="s-bar-bg"><span class="s-bar-fill" style="width:20%;background:#b0bec5;"></span></div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      <strong>🔑 핵심 포인트:</strong> 버크셔는 Clayton Homes(12위) + Taylor Morrison(6위) 통합으로
+      <strong>미국 4위 주택건설그룹</strong>으로 도약합니다. 규모 확대로 토지 협상력, 자재비 절감,
+      모기지 금리 보전(buydown) 능력이 중소형 경쟁사 대비 유리해집니다.
+      버크셔는 이미 Lennar와 NVR 지분도 보유 중입니다.
+    </div>
+    <div class="source-note">출처: ResiClub Analytics · Bloomberg · HousingWire (2026.06.01) &nbsp;·&nbsp; ※ 시장점유율은 추정치입니다.</div>
+  </div>
+</body>
+</html>
