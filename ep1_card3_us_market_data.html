@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>미국 모듈 가격·구성 데이터 | 태양광 모듈 동향 ①</title>
+
+<meta property="og:title" content="미국 모듈 가격, 지금 어디에 있고 무엇으로 만들어질까" />
+<meta property="og:description" content="Anza 데이터로 본 2026년 미국 모듈 조립 가격 추이와 기술·FEOC 컴플라이언스·원산지 구성을 정리했습니다." />
+<meta property="og:image" content="[여기에_썸네일_이미지_URL을_입력하세요]" />
+<meta property="og:url" content="[여기에_블로그_게시글_URL을_입력하세요]" />
+<meta property="og:type" content="article" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&amp;family=Roboto+Mono:wght@500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/tabler-icons.min.css" />
+
+<style>
+  :root{
+    --bg-page:#FAF6EC; --bg-card:#FFFFFF; --bg-soft:#F2ECDA;
+    --ink-900:#1E2A33; --ink-700:#3B4A56; --ink-500:#6B7A84;
+    --gold-600:#B9832E; --gold-200:#E9CE94; --gold-050:#FBF4E2;
+    --navy-700:#1C3D5C; --navy-050:#EAF0F5;
+    --teal-600:#1F7A67; --teal-050:#E7F4F0;
+    --rust-600:#A8402E; --rust-050:#FBEAE6;
+    --line-hair:#E3D9BE;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg-page);font-family:'Pretendard','Noto Sans KR',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--ink-900);-webkit-font-smoothing:antialiased;}
+  .wrap{max-width:760px;margin:0 auto;padding:36px 20px 44px;}
+  .eyebrow{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:.04em;color:var(--gold-600);text-transform:uppercase;margin-bottom:10px;}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--gold-600);}
+  .eyebrow .ep{background:var(--navy-700);color:#fff;padding:2px 8px;border-radius:999px;font-size:11px;letter-spacing:.03em;}
+  h1.title{font-family:'Noto Serif KR',serif;font-weight:900;font-size:24px;line-height:1.4;margin:0 0 8px;color:var(--ink-900);}
+  .sub{font-size:14.5px;color:var(--ink-500);line-height:1.6;margin:0 0 24px;}
+
+  .section{margin-bottom:24px;}
+  .section-head{display:flex;align-items:center;gap:8px;margin-bottom:13px;}
+  .section-head i{color:var(--navy-700);font-size:17px;}
+  .section-head h2{font-size:15.5px;font-weight:800;margin:0;color:var(--ink-900);}
+  .panel{background:var(--bg-card);border:1px solid var(--line-hair);border-radius:14px;padding:18px 18px 16px;box-shadow:0 1px 2px rgba(30,42,51,.04);}
+
+  .price-badge{display:flex;align-items:baseline;gap:8px;margin-bottom:4px;}
+  .price-badge .big{font-family:'Roboto Mono',monospace;font-weight:800;font-size:28px;color:var(--gold-600);}
+  .price-badge .lbl{font-size:12.5px;color:var(--ink-500);}
+  .price-sub{font-size:12px;color:var(--ink-500);margin-bottom:14px;}
+
+  .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .stat-card{border-radius:12px;padding:15px 14px;}
+  .stat-card.a{background:var(--navy-050);}
+  .stat-card.b{background:var(--gold-050);}
+  .stat-title{font-size:12px;font-weight:700;color:var(--ink-700);margin-bottom:10px;}
+  .stat-bar-row{display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:6px;}
+  .stat-bar-row b{font-family:'Roboto Mono',monospace;}
+  .mini-track{height:8px;background:#fff;border-radius:4px;overflow:hidden;margin-bottom:10px;}
+  .mini-fill{height:100%;border-radius:4px;}
+
+  .origin-row{display:flex;align-items:center;gap:10px;margin-bottom:11px;}
+  .origin-row:last-child{margin-bottom:0;}
+  .origin-name{width:78px;flex-shrink:0;font-size:12.5px;font-weight:700;color:var(--ink-700);}
+  .origin-track{flex:1;height:16px;background:var(--bg-soft);border-radius:5px;overflow:hidden;}
+  .origin-fill{height:100%;border-radius:5px;}
+  .origin-val{width:56px;text-align:right;flex-shrink:0;font-family:'Roboto Mono',monospace;font-weight:700;font-size:12.5px;color:var(--ink-900);}
+
+  .note{font-size:11.5px;color:var(--ink-500);margin-top:12px;line-height:1.6;border-top:1px dashed var(--line-hair);padding-top:10px;}
+  .footer-note{margin-top:6px;padding-top:16px;border-top:1px solid var(--line-hair);font-size:11.5px;color:var(--ink-500);line-height:1.7;}
+  @media (max-width:480px){h1.title{font-size:20px;} .wrap{padding:26px 14px 32px;} .stat-grid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="eyebrow"><span class="dot"></span>SOLAR MODULE REPORT<span class="ep">EP.01</span></div>
+  <h1 class="title">미국 모듈 가격, 지금<br>어디에 있을까요</h1>
+  <p class="sub">Anza 데이터로 본 2026년 미국 모듈 조립가격과 구성</p>
+
+  <!-- price trend -->
+  <div class="section">
+    <div class="section-head"><i class="ti ti-chart-line"></i><h2>모듈 조립가격 추이 (중간값, $/W)</h2></div>
+    <div class="panel">
+      <div class="price-badge"><span class="big">$0.30</span><span class="lbl">/ W · 2026년 5~7월 초 (안정세)</span></div>
+      <div class="price-sub">1분기 $0.31 → 4월 $0.295 → 5~7월 $0.30 유지 · P25~P75 구간 $0.280~$0.325</div>
+
+      <svg viewBox="0 0 660 150" width="100%" height="150">
+        <line x1="40" y1="20" x2="40" y2="120" stroke="#E3D9BE" stroke-width="1.5"/>
+        <line x1="40" y1="120" x2="640" y2="120" stroke="#E3D9BE" stroke-width="1.5"/>
+        <text x="10" y="26" font-family="Roboto Mono, monospace" font-size="11" fill="#6B7A84">.33</text>
+        <text x="10" y="76" font-family="Roboto Mono, monospace" font-size="11" fill="#6B7A84">.30</text>
+        <text x="10" y="124" font-family="Roboto Mono, monospace" font-size="11" fill="#6B7A84">.27</text>
+        <line x1="40" y1="30" x2="640" y2="30" stroke="#F2ECDA" stroke-width="1"/>
+        <line x1="40" y1="75" x2="640" y2="75" stroke="#F2ECDA" stroke-width="1"/>
+        <!-- IQR band around last point -->
+        <rect x="520" y="40" width="80" height="55" fill="#B9832E" opacity="0.10"/>
+        <text x="560" y="36" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="10" fill="#B9832E">P25–P75</text>
+        <polyline points="140,45 380,84 560,68" fill="none" stroke="#1C3D5C" stroke-width="2.5" stroke-dasharray="5 4"/>
+        <circle cx="140" cy="45" r="6" fill="#1C3D5C"/>
+        <circle cx="380" cy="84" r="6" fill="#1C3D5C"/>
+        <circle cx="560" cy="68" r="7" fill="#B9832E"/>
+        <text x="140" y="140" text-anchor="middle" font-family="Pretendard" font-size="12" fill="#3B4A56" font-weight="700">1분기 평균</text>
+        <text x="380" y="140" text-anchor="middle" font-family="Pretendard" font-size="12" fill="#3B4A56" font-weight="700">4월</text>
+        <text x="560" y="140" text-anchor="middle" font-family="Pretendard" font-size="12" fill="#3B4A56" font-weight="700">5~7월초</text>
+        <text x="140" y="38" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="12" fill="#1C3D5C" font-weight="700">$0.310</text>
+        <text x="380" y="100" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="12" fill="#1C3D5C" font-weight="700">$0.295</text>
+        <text x="560" y="58" text-anchor="middle" font-family="Roboto Mono, monospace" font-size="13" fill="#B9832E" font-weight="800">$0.300</text>
+      </svg>
+      <div class="note">추적 대상 미국 조립 모듈 55개 기준. 값이 낮을수록(위쪽) 그래프 상단에 위치하도록 축을 반전 표기했습니다.</div>
+    </div>
+  </div>
+
+  <!-- tech mix + FEOC -->
+  <div class="section">
+    <div class="section-head"><i class="ti ti-adjustments"></i><h2>기술 구성 &amp; FEOC 컴플라이언스</h2></div>
+    <div class="stat-grid">
+      <div class="stat-card a">
+        <div class="stat-title">셀 기술 (55개 모듈 기준)</div>
+        <div class="stat-bar-row"><span>TOPCon</span><b>49 / 55</b></div>
+        <div class="mini-track"><div class="mini-fill" style="width:89%;background:#1C3D5C;"></div></div>
+        <div class="stat-bar-row"><span>레거시 PERC</span><b>6 / 55</b></div>
+        <div class="mini-track"><div class="mini-fill" style="width:11%;background:#8FA6BA;"></div></div>
+      </div>
+      <div class="stat-card b">
+        <div class="stat-title">FEOC 셀 기준 충족 여부</div>
+        <div class="stat-bar-row"><span>충족(컴플라이언트)</span><b>32 / 55</b></div>
+        <div class="mini-track"><div class="mini-fill" style="width:58%;background:#B9832E;"></div></div>
+        <div class="stat-bar-row"><span>미충족</span><b>23 / 55</b></div>
+        <div class="mini-track"><div class="mini-fill" style="width:42%;background:#E4BE72;"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- origin -->
+  <div class="section">
+    <div class="section-head"><i class="ti ti-map-pin"></i><h2>원산지 구성 상위 국가</h2></div>
+    <div class="panel">
+      <div style="font-size:12px;font-weight:700;color:var(--ink-500);margin-bottom:10px;">셀 원산지 (상위)</div>
+      <div class="origin-row"><span class="origin-name">케냐</span><div class="origin-track"><div class="origin-fill" style="width:100%;background:linear-gradient(90deg,#2C567C,#1C3D5C);"></div></div><span class="origin-val">12개</span></div>
+      <div class="origin-row"><span class="origin-name">필리핀</span><div class="origin-track"><div class="origin-fill" style="width:92%;background:linear-gradient(90deg,#3E6D93,#2C567C);"></div></div><span class="origin-val">11개</span></div>
+      <div class="origin-row"><span class="origin-name">한국</span><div class="origin-track" style="background:repeating-linear-gradient(135deg,var(--bg-soft),var(--bg-soft) 6px,#EDE6D2 6px,#EDE6D2 12px);border:1px dashed var(--ink-500);"><div class="origin-fill" style="width:0%;"></div></div><span class="origin-val" style="color:var(--ink-500);">순위 밖</span></div>
+
+      <div style="font-size:12px;font-weight:700;color:var(--ink-500);margin:16px 0 10px;">폴리실리콘 원산지 (상위)</div>
+      <div class="origin-row"><span class="origin-name">말레이시아</span><div class="origin-track"><div class="origin-fill" style="width:100%;background:linear-gradient(90deg,#D4A247,#B9832E);"></div></div><span class="origin-val">24개</span></div>
+      <div class="origin-row"><span class="origin-name">미국</span><div class="origin-track"><div class="origin-fill" style="width:63%;background:linear-gradient(90deg,#E4BE72,#D4A247);"></div></div><span class="origin-val">15개</span></div>
+      <div class="origin-row"><span class="origin-name">중국</span><div class="origin-track"><div class="origin-fill" style="width:54%;background:linear-gradient(90deg,#C9C2AE,#B7ACA1);"></div></div><span class="origin-val">13개</span></div>
+
+      <div class="note">한국은 이번 조사 청원의 당사국임에도 최신 셀 원산지 상위권에 이름을 올리지 못했습니다. 시장이 이미 리스크를 일부 선반영했을 가능성을 시사하는 대목입니다.</div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    출처: pv magazine USA(2026.7.30, Anza 가격·구성 데이터 인용) · 55개 미국 조립 모듈 추적 표본 기준이며, 표본 구성에 따라 실제 시장 전체 비중과 다를 수 있습니다.
+  </div>
+
+</div>
+</body>
+</html>
